@@ -18,56 +18,67 @@ import {MDCFoundation} from '@material/base';
 import {cssClasses, strings, numbers} from './constants';
 import {clamp, bezierProgress} from '../util';
 
+/**
+ * @extends {MDCFoundation<!MDCSimpleMenuAdapter>}
+ */
 export default class MDCSimpleMenuFoundation extends MDCFoundation {
+  /** @return enum{cssClasses} */
   static get cssClasses() {
     return cssClasses;
   }
 
+  /** @return enum{strings} */
   static get strings() {
     return strings;
   }
 
+  /** @return enum{numbers} */
   static get numbers() {
     return numbers;
   }
 
+  /**
+   * {@see MDCSimpleMenuAdapter} for typing information on parameters and return
+   * types.
+   * @return {!MDCSimpleMenuAdapter}
+   */
   static get defaultAdapter() {
     return {
-      addClass: (/* className: string */) => {},
-      removeClass: (/* className: string */) => {},
-      hasClass: (/* className: string */) => {},
-      hasNecessaryDom: () => /* boolean */ false,
-      getAttributeForEventTarget: (/* target: EventTarget, attributeName: string */) => {},
-      getInnerDimensions: () => /* { width: number, height: number } */ ({}),
-      hasAnchor: () => /* boolean */ false,
-      getAnchorDimensions: () =>
-          /* { width: number, height: number, top: number, right: number, bottom: number, left: number } */ ({}),
-      getWindowDimensions: () => /* { width: number, height: number } */ ({}),
-      setScale: (/* x: number, y: number */) => {},
-      setInnerScale: (/* x: number, y: number */) => {},
-      getNumberOfItems: () => /* number */ 0,
-      registerInteractionHandler: (/* type: string, handler: EventListener */) => {},
-      deregisterInteractionHandler: (/* type: string, handler: EventListener */) => {},
-      registerBodyClickHandler: (/* handler: EventListener */) => {},
-      deregisterBodyClickHandler: (/* handler: EventListener */) => {},
-      getYParamsForItemAtIndex: (/* index: number */) => /* {top: number, height: number} */ ({}),
-      setTransitionDelayForItemAtIndex: (/* index: number, value: string */) => {},
-      getIndexForEventTarget: (/* target: EventTarget */) => /* number */ 0,
-      notifySelected: (/* evtData: {index: number} */) => {},
+      addClass: () => {},
+      removeClass: () => {},
+      hasClass: () => false,
+      hasNecessaryDom: () => false,
+      getAttributeForEventTarget: () => {},
+      getInnerDimensions: () => ({}),
+      hasAnchor: () => false,
+      getAnchorDimensions: () => ({}),
+      getWindowDimensions: () => ({}),
+      setScale: () => {},
+      setInnerScale: () => {},
+      getNumberOfItems: () => 0,
+      registerInteractionHandler: () => {},
+      deregisterInteractionHandler: () => {},
+      registerBodyClickHandler: () => {},
+      deregisterBodyClickHandler: () => {},
+      getYParamsForItemAtIndex: () => ({}),
+      setTransitionDelayForItemAtIndex: () => {},
+      getIndexForEventTarget: () => 0,
+      notifySelected: () => {},
       notifyCancel: () => {},
       saveFocus: () => {},
       restoreFocus: () => {},
-      isFocused: () => /* boolean */ false,
+      isFocused: () => false,
       focus: () => {},
-      getFocusedItemIndex: () => /* number */ -1,
-      focusItemAtIndex: (/* index: number */) => {},
-      isRtl: () => /* boolean */ false,
-      setTransformOrigin: (/* origin: string */) => {},
-      setPosition: (/* position: { top: string, right: string, bottom: string, left: string } */) => {},
-      getAccurateTime: () => /* number */ 0,
+      getFocusedItemIndex: () => -1,
+      focusItemAtIndex: () => {},
+      isRtl: () => false,
+      setTransformOrigin: () => {},
+      setPosition: () => {},
+      getAccurateTime: () => 0,
     };
   }
 
+  /** @param {!MDCSimpleMenuAdapter} adapter */
   constructor(adapter) {
     super(Object.assign(MDCSimpleMenuFoundation.defaultAdapter, adapter));
     this.clickHandler_ = (evt) => this.handlePossibleSelected_(evt);
@@ -405,4 +416,125 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
   isOpen() {
     return this.isOpen_;
   }
+}
+
+
+/** @record */
+class MDCSimpleMenuAdapter {
+  /** @param {string} className */
+  addClass(className) {}
+
+  /** @param {string} className */
+  removeClass(className) {}
+
+  /**
+   * @param {string} className
+   * @return {boolean}
+   */
+  hasClass(className) {}
+
+  /** @return {boolean} */
+  hasNecessaryDom() {}
+
+  /**
+   * @param {EventTarget} target
+   * @param {string} attributeName
+   * @return {string}
+   */
+  getAttributeForEventTarget(target, attributeName) {}
+
+  /** @return {{ width: number, height: number }} */
+  getInnerDimensions() {}
+
+  /** @return {boolean} */
+  hasAnchor() {}
+
+  /** @return {{width: number, height: number, top: number, right: number, bottom: number, left: number}} */
+  getAnchorDimensions() {}
+
+  /** @return {{ width: number, height: number }} */
+  getWindowDimensions() {}
+
+  /**
+   * @param {number} x
+   * @param {number} y
+   */
+  setScale(x, y) {}
+
+  /**
+   * @param {number} x
+   * @param {number} y
+   */
+  setInnerScale(x, y) {}
+
+  /** @return {number} */
+  getNumberOfItems() {}
+
+  /**
+   * @param {string} type
+   * @param {EventListener} handler
+   */
+  registerInteractionHandler(type, handler) {}
+
+  /**
+   * @param {string} type
+   * @param {EventListener} handler
+   */
+  deregisterInteractionHandler(type, handler) {}
+
+  /** @param {EventListener} handler */
+  registerBodyClickHandler(handler) {}
+
+  /** @param {EventListener} handler */
+  deregisterBodyClickHandler(handler) {}
+
+  /**
+   * @param {number} index
+   * @return {{top: number, height: number}}
+   */
+  getYParamsForItemAtIndex(index) {}
+
+  /**
+   * @param {number} index
+   * @param {string} value
+   */
+  setTransitionDelayForItemAtIndex(index, value) {}
+
+  /**
+   * @param {EventTarget} target
+   * @return {number}
+   */
+  getIndexForEventTarget(target) {}
+
+  /** @param {{index: number}} evtData */
+  notifySelected(evtData) {}
+
+  notifyCancel() {}
+
+  saveFocus() {}
+
+  restoreFocus() {}
+
+  /** @return {boolean} */
+  isFocused() {}
+
+  focus() {}
+
+  /** @return {number} */
+  getFocusedItemIndex() /* number */ {}
+
+  /** @param {number} index */
+  focusItemAtIndex(index) {}
+
+  /** @return {boolean} */
+  isRtl() {}
+
+  /** @param {string} origin */
+  setTransformOrigin(origin) {}
+
+  /** @param {{ top: string, right: string, bottom: string, left: string }} position */
+  setPosition(position) {}
+
+  /** @return {number} */
+  getAccurateTime() {}
 }
