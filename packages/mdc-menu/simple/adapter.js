@@ -54,20 +54,20 @@ export default class MDCSimpleMenuAdapter {
 
   /**
    * @param {string} type
-   * @param {function(!EventListener)} handler
+   * @param {function(!Event)} handler
    */
   registerInteractionHandler(type, handler) {}
 
   /**
    * @param {string} type
-   * @param {function(!EventListener)} handler
+   * @param {function(!Event)} handler
    */
   deregisterInteractionHandler(type, handler) {}
 
-  /** @param {function(!EventListener)} handler */
+  /** @param {function(!Event)} handler */
   registerBodyClickHandler(handler) {}
 
-  /** @param {function(!EventListener)} handler */
+  /** @param {function(!Event)} handler */
   deregisterBodyClickHandler(handler) {}
 
   /**

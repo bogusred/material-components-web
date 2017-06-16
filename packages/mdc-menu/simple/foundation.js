@@ -82,21 +82,35 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
   /** @param {!MDCSimpleMenuAdapter} adapter */
   constructor(adapter) {
     super(Object.assign(MDCSimpleMenuFoundation.defaultAdapter, adapter));
+
+    /** @private {function(!Event)} */
     this.clickHandler_ = (evt) => this.handlePossibleSelected_(evt);
+    /** @private {function(!Event)} */
     this.keydownHandler_ = (evt) => this.handleKeyboardDown_(evt);
+    /** @private {function(!Event)} */
     this.keyupHandler_ = (evt) => this.handleKeyboardUp_(evt);
+    /** @private {function(!Event)} */
     this.documentClickHandler_ = (evt) => {
       this.adapter_.notifyCancel();
       this.close(evt);
     };
+    /** @private {boolean} */
     this.isOpen_ = false;
+    /** @private {number} */
     this.startScaleX_ = 0;
+    /** @private {number} */
     this.startScaleY_ = 0;
+    /** @private {number} */
     this.targetScale_ = 1;
+    /** @private {number} */
     this.scaleX_ = 0;
+    /** @private {number} */
     this.scaleY_ = 0;
+    /** @private {boolean} */
     this.running_ = false;
+    /** @private {number} */
     this.selectedTriggerTimerId_ = 0;
+    /** @private {number} */
     this.animationRequestId_ = 0;
     /** @private {!{ width: number, height: number }} */
     this.dimensions_;
@@ -136,7 +150,10 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     this.adapter_.deregisterBodyClickHandler(this.documentClickHandler_);
   }
 
-  // Calculate transition delays for individual menu items, so that they fade in one at a time.
+  /**
+   * Calculates transition delays for individual menu items, so that they fade in one at a time.
+   * @private
+   */
   applyTransitionDelays_() {
     const {BOTTOM_LEFT, BOTTOM_RIGHT} = MDCSimpleMenuFoundation.cssClasses;
     const numItems = this.adapter_.getNumberOfItems();
@@ -157,7 +174,10 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     }
   }
 
-  // Remove transition delays from menu items.
+  /**
+   * Removes transition delays from menu items.
+   * @private
+   */
   removeTransitionDelays_() {
     const numItems = this.adapter_.getNumberOfItems();
     for (let i = 0; i < numItems; i++) {
@@ -165,7 +185,10 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     }
   }
 
-  // Animate menu opening or closing.
+  /**
+   * Animates menu opening or closing.
+   * @private
+   */
   animationLoop_() {
     const time = this.adapter_.getAccurateTime();
     const {TRANSITION_DURATION_MS, TRANSITION_X1, TRANSITION_Y1, TRANSITION_X2, TRANSITION_Y2,
@@ -251,9 +274,10 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     }
   }
 
-  /** Handle keys that we want to repeat on hold (tab and arrows).
+  /**
+   * Handle keys that we want to repeat on hold (tab and arrows).
    * @param {!Event} evt
-   * @returns {boolean}
+   * @return {boolean}
    * @private
    */
   handleKeyboardDown_(evt) {
@@ -424,7 +448,10 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     this.isOpen_ = true;
   }
 
-  // Close the menu.
+  /**
+   * Closes the menu.
+   * @param {Event=} evt
+   */
   close(evt = null) {
     const targetIsDisabled = evt ?
       this.adapter_.getAttributeForEventTarget(evt.target, strings.ARIA_DISABLED_ATTR) === 'true' :
@@ -445,6 +472,7 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     this.adapter_.restoreFocus();
   }
 
+  /** @return {boolean} */
   isOpen() {
     return this.isOpen_;
   }

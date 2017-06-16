@@ -24,22 +24,27 @@ export {MDCSimpleMenuFoundation};
  * @extends MDCComponent<!MDCSimpleMenuFoundation>
  */
 export class MDCSimpleMenu extends MDCComponent {
-  /**
-   * @param {...?} args
-   */
+  /** @param {...?} args */
   constructor(...args) {
     super(...args);
     /** @private {!Element} */
     this.previousFocus_;
   }
+
+  /**
+   * @param {!Element} root
+   * @return {!MDCSimpleMenu}
+   */
   static attachTo(root) {
     return new MDCSimpleMenu(root);
   }
 
+  /** @return {boolean} */
   get open() {
     return this.foundation_.isOpen();
   }
 
+  /** @param {boolean} value */
   set open(value) {
     if (value) {
       this.foundation_.open();
@@ -48,6 +53,7 @@ export class MDCSimpleMenu extends MDCComponent {
     }
   }
 
+  /** @param {{focusIndex: ?number}=} options */
   show({focusIndex = null} = {}) {
     this.foundation_.open({focusIndex: focusIndex});
   }
@@ -56,20 +62,26 @@ export class MDCSimpleMenu extends MDCComponent {
     this.foundation_.close();
   }
 
-  /* Return the item container element inside the component. */
+  /**
+   * Return the item container element inside the component.
+   * @return {?Element}
+   */
   get itemsContainer_() {
     return this.root_.querySelector(MDCSimpleMenuFoundation.strings.ITEMS_SELECTOR);
   }
 
-  /* Return the items within the menu. Note that this only contains the set of elements within
+  /**
+   * Return the items within the menu. Note that this only contains the set of elements within
    * the items container that are proper list items, and not supplemental / presentational DOM
    * elements.
+   * @return {!Array<!Element>}
    */
   get items() {
     const {itemsContainer_: itemsContainer} = this;
     return [].slice.call(itemsContainer.querySelectorAll('.mdc-list-item[role]'));
   }
 
+  /** @return {!MDCSimpleMenuFoundation} */
   getDefaultFoundation() {
     return new MDCSimpleMenuFoundation({
       addClass: (className) => this.root_.classList.add(className),
