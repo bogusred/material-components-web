@@ -104,7 +104,7 @@ export default class MDCComponent {
    * with the given data.
    * @param {string} evtType
    * @param {!Object} evtData
-   * @param {boolean} shouldBubble
+   * @param {boolean=} shouldBubble
    */
   emit(evtType, evtData, shouldBubble = false) {
     let evt;

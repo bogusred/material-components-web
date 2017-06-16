@@ -14,13 +14,24 @@
  * limitations under the License.
  */
 
-import {MDCComponent} from '@material/base';
+import MDCComponent from '@material/base/component';
 import MDCSimpleMenuFoundation from './foundation';
 import {getTransformPropertyName} from '../util';
 
 export {MDCSimpleMenuFoundation};
 
+/**
+ * @extends MDCComponent<!MDCSimpleMenuFoundation>
+ */
 export class MDCSimpleMenu extends MDCComponent {
+  /**
+   * @param {...?} args
+   */
+  constructor(...args) {
+    super(...args);
+    /** @private {!Element} */
+    this.previousFocus_;
+  }
   static attachTo(root) {
     return new MDCSimpleMenu(root);
   }
@@ -97,7 +108,7 @@ export class MDCSimpleMenu extends MDCComponent {
         index: evtData.index,
         item: this.items[evtData.index],
       }),
-      notifyCancel: () => this.emit(MDCSimpleMenuFoundation.strings.CANCEL_EVENT),
+      notifyCancel: () => this.emit(MDCSimpleMenuFoundation.strings.CANCEL_EVENT, {}),
       saveFocus: () => {
         this.previousFocus_ = document.activeElement;
       },
