@@ -217,7 +217,10 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     }
   }
 
-  // Starts the open or close animation.
+  /**
+   * Starts the open or close animation.
+   * @private
+   */
   animateMenu_() {
     this.startTime_ = this.adapter_.getAccurateTime();
     this.startScaleX_ = this.scaleX_;
@@ -231,6 +234,10 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     }
   }
 
+  /**
+   * @param {?number} focusIndex
+   * @private
+   */
   focusOnOpen_(focusIndex) {
     if (focusIndex === null) {
       // First, try focusing the menu.
@@ -244,7 +251,11 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     }
   }
 
-  // Handle keys that we want to repeat on hold (tab and arrows).
+  /** Handle keys that we want to repeat on hold (tab and arrows).
+   * @param {!Event} evt
+   * @returns {boolean}
+   * @private
+   */
   handleKeyboardDown_(evt) {
     // Do nothing if Alt, Ctrl or Meta are pressed.
     if (evt.altKey || evt.ctrlKey || evt.metaKey) {
@@ -294,7 +305,12 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     return true;
   }
 
-  // Handle keys that we don't want to repeat on hold (Enter, Space, Escape).
+  /**
+   * Handle keys that we don't want to repeat on hold (Enter, Space, Escape).
+   * @param {!Event} evt
+   * @return {boolean}
+   * @private
+   */
   handleKeyboardUp_(evt) {
     // Do nothing if Alt, Ctrl or Meta are pressed.
     if (evt.altKey || evt.ctrlKey || evt.metaKey) {
@@ -318,6 +334,10 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     return true;
   }
 
+  /**
+   * @param {!Event} evt
+   * @private
+   */
   handlePossibleSelected_(evt) {
     if (this.adapter_.getAttributeForEventTarget(evt.target, strings.ARIA_DISABLED_ATTR) === 'true') {
       return;
@@ -337,6 +357,7 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     }, numbers.SELECTED_TRIGGER_DELAY);
   }
 
+  /** @private */
   autoPosition_() {
     if (!this.adapter_.hasAnchor()) {
       return;
@@ -383,7 +404,11 @@ export default class MDCSimpleMenuFoundation extends MDCFoundation {
     this.adapter_.setPosition(position);
   }
 
-  // Open the menu.
+
+  /**
+   * Open the menu.
+   * @param {{focusIndex: ?number}=} options
+   */
   open({focusIndex = null} = {}) {
     this.adapter_.saveFocus();
     this.adapter_.addClass(MDCSimpleMenuFoundation.cssClasses.ANIMATING);

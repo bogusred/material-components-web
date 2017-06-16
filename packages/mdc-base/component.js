@@ -39,7 +39,7 @@ export default class MDCComponent {
    * @param {...?} args
    */
   constructor(root, foundation = undefined, ...args) {
-    /** @private {!Element} */
+    /** @protected {!Element} */
     this.root_ = root;
     this.initialize(...args);
     // Note that we initialize foundation here and not within the constructor's default param so that
